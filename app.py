@@ -37,5 +37,7 @@ def get_data():
     return jsonify([{'id': d.id, 'content': d.content} for d in data_list])
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
 
