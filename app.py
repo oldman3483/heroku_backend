@@ -1,11 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import os
-import re
 
 app = Flask(__name__)
 
-# 修正 DATABASE_URL 格式，確保 SQLAlchemy 可以使用
+# Fix Heroku PostgreSQL URL issue
 DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///test.db')
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
@@ -14,7 +13,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-
 
 class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
