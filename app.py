@@ -18,7 +18,8 @@ class Data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), nullable=False)
 
-db.create_all()
+with app.app_context():
+    db.create_all()
 
 @app.route('/add', methods=['POST'])
 def add_data():
@@ -37,3 +38,4 @@ def get_data():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
